@@ -1,8 +1,16 @@
 import pickle
 import streamlit as st
 
-# Load the model
-diabetes_model = pickle.load(open('diabetes_model.sav', 'rb'))
+# Menentukan jalur file model
+model_file = 'diabetes_model.sav'
+if os.path.exists(model_file):
+    try:
+        diabetes_model = pickle.load(open(model_file, 'rb'))
+    except Exception as e:
+        st.error(f"Terjadi kesalahan saat memuat model: {str(e)}")
+else:
+    st.error("File model diabetes tidak ditemukan. Pastikan file 'diabetes_model.sav' ada di direktori aplikasi.")
+
 
 # Title of the web app
 st.title('Prediksi Diabetes')
